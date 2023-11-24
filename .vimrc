@@ -25,6 +25,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'flazz/vim-colorschemes'
+Plugin 'preservim/nerdtree'
 Plugin 'tpope/vim-surround'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -105,5 +106,21 @@ endif
 set guifont=Monaco:h18
 colorscheme OceanicNext
 
+" Setup 80 symbols highlight
 highlight OverLength ctermbg=DarkGrey ctermfg=white guibg=#404040
 match OverLength /\%81v.\+/
+
+" Open NERDTree automaticaly
+autocmd VimEnter * NERDTree
+" Move coursor from NERDTree to opened file
+autocmd VimEnter * wincmd p
+" Close NERDTree automaticaly when main buffer is closed
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Show hidden files in NERDTree
+let NERDTreeShowHidden=1
+
+"" Switching windows
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
