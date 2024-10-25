@@ -3,21 +3,21 @@
 get_icon() {
     case $1 in
         # Icons for weather-icons
-        01d) icon="";;
+        01d) icon="󰖙";;
         01n) icon="";;
-        02d) icon="";;
+        02d) icon="󰖕";;
         02n) icon="";;
-        03*) icon="";;
-        04*) icon="";;
-        09d) icon="";;
+        03*) icon="󰖐";;
+        04*) icon="󰼯";;
+        09d) icon="󰖗";;
         09n) icon="";;
-        10d) icon="";;
+        10d) icon="";;
         10n) icon="";;
-        11d) icon="";;
+        11d) icon="";;
         11n) icon="";;
-        13d) icon="";;
+        13d) icon="󰖘";;
         13n) icon="";;
-        50d) icon="";;
+        50d) icon="󰖑";;
         50n) icon="";;
         *) icon="";
 
@@ -38,7 +38,7 @@ get_icon() {
         #*) icon="";
     esac
 
-    echo $icon
+    echo -n $icon 
 }
 
 KEY="e434b5435a979de6e155570590bee89b"
@@ -71,5 +71,6 @@ if [ -n "$weather" ]; then
     weather_temp=$(echo "$weather" | jq ".main.temp" | cut -d "." -f 1)
     weather_icon=$(echo "$weather" | jq -r ".weather[0].icon")
 
-    echo  "$weather_temp$SYMBOL"
+    get_icon $weather_icon 
+    echo  " $weather_temp$SYMBOL"
 fi
