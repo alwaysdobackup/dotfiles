@@ -1,4 +1,5 @@
 # Minimal Arch Install
+
 ## Script 
 The script basically does all this automatically. Please open and read the script before the 1st run, it can wipe your data, beware!
 
@@ -23,7 +24,7 @@ The script basically does all this automatically. Please open and read the scrip
 ## Pre-Install and connect to the internet
 Load pt keyboard
 ```
-loadkeys pt-latin1
+loadkeys us
 ```
 
 Wireless configuration
@@ -47,28 +48,31 @@ timedatectl set-ntp true
 ## Disk partition
 My default config with 3 partitions
 Open ```cfdisk``` and create
-* boot with at least 512MB, should be /dev/sdx1
-* swap with atleast 1GB, should be /dev/sdx2
-* root with the remaining, should be /dev/sdx3
+* boot with at least 1G, should be /dev/sdaX
+* swap with at least 8GB, should be /dev/sdaX
+* root with the remaining, should be /dev/sdaX
+* home at different disk, should be /dev/sdbX
 
 Format the partitions 
 ```
-mkfs.ext4 /dev/sdx1
-mkswap /dev/sdx2
-mkfs.ext4 /dev/sdx3
+mkfs.fat -F32 /dev/sdaX # BOOT
+mkswap /dev/sdaX  # SWAP
+mkfs.ext4 /dev/sdaX # ROOT
+mkfs.ext4 /dev/sdbX # HOME
 ``` 
 and mount them
 ```
-mount /dev/sdx3 /mnt
+mount /dev/sdaX /mnt  # ROOT
 mkdir /mnt/{boot,home}
-mount /dev/sdx1 /mnt/boot
-swapon /dev/sdx2 
+mount /dev/sdaX /mnt/boot # ROOT
+mount /dev/sdbX /mnt/home # HOME
+swapon /dev/sdaX 
 ```
 
 ## Install Arch
 #### Install base system and extras 
 ```
-pacstrap /mnt base linux linux-firmware nano networkmanager grub efibootmgr os-prober
+pacstrap /mnt base linux linux-firmware networkmanager efibootmgr vim  
 ```
 
 #### Install Microcode - https://wiki.archlinux.org/index.php/Microcode
@@ -77,7 +81,7 @@ pacstrap /mnt base linux linux-firmware nano networkmanager grub efibootmgr os-p
 
 Amd: amd-ucode or Intel: intel-ucode
 ```
-pacstrap /mnt amd-ucode
+pacstrap /mnt intel-ucode
 ```
 
 #### Generate fstab - https://wiki.archlinux.org/index.php/Fstab
@@ -98,7 +102,7 @@ arch-chroot /mnt
 
 #### Set the time zone - https://wiki.archlinux.org/index.php/System_time#Time_zone
 ```
-timedatectl set-timezone Europe/Lisbon
+timedatectl set-timezone Europe/Kiev
 ```
 
 #### Generate /etc/adjtime - https://wiki.archlinux.org/index.php/System_time#Set_hardware_clock_from_system_clock - https://man.archlinux.org/man/hwclock.8#The_Adjtime_File
@@ -132,7 +136,7 @@ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
 #### Set keyboard layout
 ```
-echo "KEYMAP=pt-latin1" >> /etc/vconsole.conf
+echo "KEYMAP=us" >> /etc/vconsole.conf
 ```
 
 #### Set hostname - https://wiki.archlinux.org/index.php/Network_configuration#Set_the_hostname
@@ -140,17 +144,17 @@ echo "KEYMAP=pt-latin1" >> /etc/vconsole.conf
 >A hostname is a unique name created to identify a machine on a network, configured in /etc/hostname
 
 ```
-echo "archx64" >> /etc/hostname
+echo "localhost" >> /etc/hostname
 ```
 
 #### Config /etc/hosts - https://wiki.archlinux.org/index.php/Network_configuration#Local_hostname_resolution
 ```
 127.0.0.1    localhost
 ::1          localhost
-127.0.1.1    archx64.localdomain     archx64
+127.0.1.1    localhost.localdomain     localhost
 ```
 ```
-echo -e "127.0.0.1	localhost\n::1		localhost\n127.0.1.1	archx64.localdomain	archx64" >> /etc/hosts
+echo -e "127.0.0.1	localhost\n::1		localhost\n127.0.1.1	localhost.localdomain	localhost" >> /etc/hosts
 ```
 
 #### Enable networkmanager service - https://wiki.archlinux.org/index.php/networkmanager
@@ -169,14 +173,19 @@ mkinitcpio -P
 
 >A boot loader is a piece of software started by the firmware (BIOS or UEFI). It is responsible for loading the kernel with the wanted kernel parameters, and initial RAM disk based on configuration files. In the case of UEFI, the kernel itself can be directly launched by the UEFI using the EFI boot stub. A separate boot loader or boot manager can still be used for the purpose of editing kernel parameters before booting.
 
-GRUB - https://wiki.archlinux.org/index.php/GRUB
-* MBR ```grub-install --target=i386-pc /dev/sdx```
-* UEFI ```grub-install --target=x86_64-efi --efi-directory=/mnt/boot --bootloader-id=archlinux```
-* BIOS/GPT - https://wiki.archlinux.org/index.php/GRUB#GUID_Partition_Table_.28GPT.29_specific_instructions
-
-Generate main config file for grub
+Systemd-boot - https://wiki.archlinux.org/title/Systemd-boot
 ```
-grub-mkconfig -o /boot/grub/grub.cfg
+bootctl install
+```
+
+Generate main config file for systemd-boot
+```
+cd /boot
+cd ./loader
+echo -e "timeout 3\ndefault arch.conf" > ./loader.conf
+cd ./entries
+touch arch.conf
+echo -e "Title Arch Linux\nlinux /vmlinuz-linux\ninitrd /initramfs-linux.img\n options root=UUID=<ROOT UUID HERE (r!<command> to paste command result in VIM)> rw
 ```
 
 #### Set root password
@@ -205,7 +214,7 @@ pacman -S sudo bash-completion
 #### Edit sudoers and remove the comment on %wheel - https://wiki.archlinux.org/index.php/Sudo#Using_visudo
 >The configuration file for sudo is /etc/sudoers. It should **always** be edited with the visudo command
 ```
-EDITOR=nano visudo
+visudo
 ```
 ```
 ## Uncomment to allow members of group wheel to execute any command
@@ -214,12 +223,12 @@ EDITOR=nano visudo
 #### Create user and add them to wheel group - https://wiki.archlinux.org/index.php/sudo#Example_entries
 >When creating new administrators, it is often desirable to enable sudo access for the wheel group and add the user to it, since by default Polkit treats the members of the wheel group as administrators. If the user is not a member of wheel, software using Polkit may ask to authenticate using the root password instead of the user password.
 ```
-useradd -m -G wheel [user]
+useradd -m -G wheel <username>
 ```
 
 #### Add a password to the new created user
 ```
-passwd [user]
+passwd <username>
 ```
 
 #### Exit root and login with new user
@@ -235,130 +244,3 @@ sudo pacman -Syu
 #### At this point, arch is installed and ready to use, although it is very *very* bare bones. Highly recommended installing atleast a firewall and a WM, like i3 or a DE like xfce.
 
 ### Extras
-
-#### Enabling multilib - https://wiki.archlinux.org/index.php/Official_repositories#multilib
-> multilib contains 32-bit software and libraries that can be used to run and build 32-bit applications on 64-bit installs (e.g. wine, steam, etc).
-```
-sudo nano /etc/pacman.conf
-``` 
-and uncomment
-```
-[multilib]
-Include = /etc/pacman.d/mirrorlist
-```
-#### Installing X - https://wiki.archlinux.org/index.php/Xorg
-> Xorg (commonly referred as simply X) is the most popular display server among Linux users.
-```
-sudo pacman -S xorg-server xorg-xinit xorg-setxkbmap
-```
-or install Xorg group with a couple of extras
-```
-sudo pacman -S xorg xorg-xinit
-```
-#### Setting the keyboard layout - https://wiki.archlinux.org/index.php/Xorg/Keyboard_configuration#Setting_keyboard_layout
-```
-localectl set-x11-keymap us
-```
-
-#### Installing graphic drivers - https://wiki.archlinux.org/index.php/Xorg#Driver_installation. 
-Example: Nvidia
-```
-sudo pacman -S nvidia
-```
-
-After this in ```/etc/mkinitcpio.conf``` need to change ```MODULES=()``` to ```MODULES=(nvidia nvidia_drm nvidia_uvm nvidi_modeset)```
-
-
-#### Window Manager - bspwm  - https://wiki.archlinux.org/index.php/i3
->bspwm is a dynamic tiling window manager inspired by wmii that is primarily targeted at developers and advanced users.
-
-Config ```.xinitrc```, from https://wiki.manjaro.org/index.php/Proper_~/.xinitrc_File
-```
-```
-#### Install bspwm and some extras
-```
-sudo pacman -S git alacritty rofi dunst polybar bspwm sxhkd picom bluez bluez-utils openssh openssl ttf-nerd-fonts-symbols jq ttf-jetbrains-mono
-```
-
-#### Right now you should have a bare minimium graphic environment to use. Highly recommended install a DM, like lightdm.
-
-#### User Directories - https://wiki.archlinux.org/index.php/XDG_user_directories
->xdg-user-dirs is a tool to help manage "well known" user directories like the desktop folder and the music folder. It also handles localization (i.e. translation) of the filenames.
-```
-sudo pacman -S xdg-user-dirs
-```
-Run ```xdg-user-dirs-update``` to create the default directories in /home (Documents, Downloads, etc)
-
-#### Sound - https://wiki.archlinux.org/index.php/PulseAudio - https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture
-
->PulseAudio is a general purpose sound server intended to run as a middleware between your applications and your hardware devices, either using ALSA or OSS.
-
->The Advanced Linux Sound Architecture (ALSA) provides kernel driven sound card drivers. It replaces the original Open Sound System (OSS).
-```
-sudo pacman -S wireplumber pipewire pipewire-pulse 
-```
-Check sound levels with ```easyeffects``` or ```pavucontrol```.
-
-#### Display Manager - https://wiki.archlinux.org/index.php/LightDM
->LightDM is a cross-desktop display manager.
-```
-sudo pacman -S lightdm lightdm-gtk-greeter
-```
-Enabling it
-```
-systemctl enable lightdm
-```
-Install ``` lightdm-gtk-greeter-settings``` to change appearance of it
-
-### Appearance
-#### QT and GTK 
->Qt and GTK based programs both use a different widget toolkit to render the graphical user interface. Each come with different themes, styles and icon sets by default, among other things, so the "look and feel" differ significantly. 
-#### Install Breeze theme - https://wiki.archlinux.org/index.php/Uniform_look_for_Qt_and_GTK_applications#Breeze
-```
-sudo pacman -S breeze breeze-gtk breeze-icons qt5ct lxappearance
-```
-* Config QT
-   ```
-   echo "QT_QPA_PLATFORMTHEME=qt5ct" >> /etc/environment
-   ```
-   Open ```qt5ct``` and change theme to "breeze" and icons.
-
-* Config GTK
-
-   Open ```lxappearance``` and change theme and icons.
-
-Xresources - https://github.com/rtxx/i3-config/blob/main/.Xresources . Copy to ```~/.Xresources```
-
-
-#### Install Materia theme - https://github.com/nana-4/materia-theme
-```
-sudo pacman -S kvantum kvantum-theme-materia materia-gtk-theme capitaine-cursors arc-icon-theme lxappearance
-```
-* Config QT
-   ```
-   echo "QT_QPA_PLATFORMTHEME=qt5ct" >> /etc/environment
-   ```
-   Open ```qt5ct``` and change theme to "kvantum" and icons.
-
-* Config GTK
-
-   Open ```lxappearance``` and change theme and icons.
-
-* Config Kvantum
-
-   Open ```kvantummanager``` and change theme.
-   >Kvantum (kvantum-qt5) is customizable SVG-based theme engine for Qt5 that comes with a variety of built-in styles, including versions of some of popular GTK themes such as Adapta, Arc, Ambiance, Materia.
-   
-Xresources - Monokai colors - https://github.com/logico-dev/Xresources-themes/blob/master/base16-monokai.Xresources . Copy to ```~/.Xresources```
-
-   
-#### Wallpapers
-```
-sudo pacman -S feh
-```
-
-#### Fonts
-
-Open ```lxappearance``` and ```qt5ct``` change to ```Noto Sans Regular``` ```Fantasque Sans Mono```
-
-
