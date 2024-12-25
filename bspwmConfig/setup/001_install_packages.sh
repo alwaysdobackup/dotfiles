@@ -14,7 +14,7 @@ grim \
 ttf-jetbrains-mono-nerd \
 alacritty \
 bspwm \
-picom \ 
+picom \
 polybar \
 rofi \
 sxhkd 
