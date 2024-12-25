@@ -1,0 +1,1 @@
+# BSPWM config based on Xorg
