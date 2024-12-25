@@ -17,5 +17,7 @@ bspwm \
 picom \
 polybar \
 rofi \
-sxhkd 
+sxhkd \
+xorg \
+xorg-xinit
 
