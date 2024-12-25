@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-sudo pacman -Syu \
-git \ 
+sudo pacman -S --noconfirm \
+git \
 vim \
 intel-ucode \
 pipewire \
