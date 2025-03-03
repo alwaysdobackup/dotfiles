@@ -1,0 +1,70 @@
+{
+  "modules-left": ["sway/workspaces", "sway/window", "sway/mode"],
+  "modules-right": ["pulseaudio", "backlight", "network", "clock"],
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%b %d(%H:%M) 󰃰}"
+  },
+  "backlight": {
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "on-scroll-up": "light -A 1",
+    "on-scroll-down": "light -U 1"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% 󰢝",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": "󰝟 {icon} {format_source}",
+    "format-muted": "󰝟 {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "󱠰",
+      "headset": "󰋎",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+  "bluetooth": {
+    // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+    // "format": "󰂯 {status}",
+    // format-* handles every state, so default format is not necessary.
+    "format-on": "󰂯",
+    "format-off": "󰂲",
+    "format-disabled": "", // an empty format will hide the module
+    "format-connected": "󰂱 {num_connections}",
+    // "tooltip-format": "{controller_alias}\t{controller_address}",
+    // "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+  },
+  "network": {
+    "format": "{ifname}",
+    "format-wifi": "Connected ",
+    "format-ethernet": "{ipaddr}/{cidr} 󰈀",
+    "format-disconnected": "Disconnected 󱛅", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰛳",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50
+  },
+  "sway/workspaces": {
+    "disable-scroll": true
+  }
+}
