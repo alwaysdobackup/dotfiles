@@ -20,7 +20,9 @@ jq \
 ttf-jetbrains-mono-nerd \
 hyprland \
 hyprlock \
+hypridle \
 hyprpaper \
 waybar \
 rofi-wayland \
-flatpak
+flatpak \
+wl-clipboard \
