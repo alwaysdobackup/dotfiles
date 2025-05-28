@@ -6,6 +6,7 @@ neovim \
 pipewire \
 wireplumber \
 pipewire-pulse \
+playerctl \
 bluez \
 bluez-utils \
 slurp \
@@ -14,6 +15,7 @@ alacritty \
 lsof \
 iotop \
 bc \
+jq \
 unzip \
 sway \
 swaylock \
@@ -21,3 +23,4 @@ swayidle \
 swaybg \
 rofi-wayland \
 flatpak \
+ttf-jetbrains-mono-nerd \
