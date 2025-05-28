@@ -3,6 +3,7 @@
     "group/system-container": {
         "orientation": "horizontal",
         "modules": [
+	    "group/language-grp",
             "group/battery-grp",
             "group/pacman-grp",
             "group/pulseaudio-grp",
@@ -10,6 +11,12 @@
         ]
     },
 
+    "group/language-grp": {
+    	"orientation": "horizontal",
+	"modules": [
+	    "hyprland/language"
+	]
+    },
     "group/pacman-grp": {
         "orientation": "horizontal",
         "modules": [
@@ -39,7 +46,16 @@
         ]
     },
 
+    "hyprland/language": {
+        "format": "󰌌 {}",
+        "format-en": "US",
+        "format-uk": "UA",
+    },
 
+    "hyprland/language#text": {
+        "tooltip": false,
+        "format": "<b>{}</b>"
+    },
 
     "custom/pacman-update": {
         "format": "󪥔",

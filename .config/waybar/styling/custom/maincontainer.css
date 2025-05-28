@@ -1,5 +1,6 @@
 @import "../colors-waybar.css";
 
+#language,
 #backlight,
 #pulseaudio,
 #custom-pacman-update {
@@ -7,7 +8,7 @@
   color: @primary;
 }
 
-
+#language.text,
 #battery.text,
 #backlight.text,
 #pulseaudio.text,
@@ -18,7 +19,8 @@
 }
 
 
-
+label#language,
+label#language.text,
 label#battery,
 label#battery.text,
 label#backlight,
@@ -46,8 +48,18 @@ label#battery.text {
   border-bottom-left-radius: 0px;
 }
 
+label#language {
+  padding-left: 3px;
+  padding-right: 4px;
+}
+
+label#language.text {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
 label#custom-pacman-update {
-  padding-left: 7px;
+  padding-left: 4px;
   padding-right: 4px;
 }
 

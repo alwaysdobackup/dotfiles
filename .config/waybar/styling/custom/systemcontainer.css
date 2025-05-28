@@ -11,6 +11,7 @@ box#system-container {
     /* border: 2px solid alpha(@secondary-container,0.95); */
 }
 
+#language,
 #backlight,
 #pulseaudio,
 #custom-pacman-update,
@@ -22,6 +23,7 @@ box#system-container {
 
 /*old-conf, needs change*/
 
+#language,
 #backlight,
 #pulseaudio,
 #custom-pacman-update {
@@ -29,7 +31,7 @@ box#system-container {
     color: @primary;
 }
 
-
+#language.text,
 #battery.text,
 #backlight.text,
 #pulseaudio.text,

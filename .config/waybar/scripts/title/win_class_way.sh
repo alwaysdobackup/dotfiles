@@ -3,36 +3,20 @@
 # Define the mapping
 declare -A PKGS=(
     ["Code"]="VsCode"
-    ["code-oss"]="VsCode"
-    ["Alacritty"]="Alacritty"
-    ["jetbrains-studio"]="Android Studio"
-    ["jetbrains-idea"]="Idea"
-    ["uget-gtk"]="Uget"
-    ["org.gnome.Nautilus"]="File Manager"
-    ["thunar"]="File Manager"
+    ["kitty"]="Kitty"
     ["org.telegram.desktop"]="Telegram"
-    ["Google-Chrome"]="Chrome"
-    ["firefox"]="Firefox"
-    ["Thorium-browser"]="Thorium"
+    ["org.mozilla.firefox"]="Firefox"
+    ["Org.chromium.Chromium"]="Chromium"
 )
 
 # Define the mapping between app names and symbols
 declare -A SYMBOLS=(
     ["Code"]="󪥢"
-    ["code-oss"]="󪥢"
-    ["Alacritty"]="󪥌"
-    ["jetbrains-studio"]="󪥰"
-    ["jetbrains-idea"]="󪤍"
-    ["uget-gtk"]="󪤐"
-    ["org.gnome.Nautilus"]="󪤈"
-    ["thunar"]="󪤈"
+    ["kitty"]="󪥌"
     ["org.telegram.desktop"]="󪥣"
-    ["Google-Chrome"]="󪤕"
-    ["firefox"]="󪥲"
-    ["Firefox"]="󪥲"
-    ["Thorium-browser"]="󪥳"
+    ["Org.chromium.Chromium"]="󪤕"
+    ["org.mozilla.firefox"]="󪥲"
     ["Spotify"]="󪥵"
-    ["GitKraken"]="󪥨"
 )
 
 app_name=$(hyprctl activewindow | grep -oP 'class: \K[^\s]+')

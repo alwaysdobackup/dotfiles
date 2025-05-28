@@ -4,17 +4,11 @@
 # Define the mapping between app names and symbols
 declare -A SYMBOLS=(
   ["Code"]="󪥢"
-  ["Alacritty"]="󪥌"
-  ["jetbrains-studio"]="󪤍"
-  ["jetbrains-idea"]="󪤍"
-  ["uget-gtk"]="󪤐"
-  ["org.gnome.Nautilus"]="󪤈"
-  ["thunar"]="󪤈"
+  ["Kitty"]="󪥌"
   ["org.telegram.desktop"]="󪥣"
-  ["Google-Chrome"]="󪤕"
-  ["firefox"]="󪤕"
+  ["Org.chromium.Chromium"]="󪤕"
+  ["org.mozilla.firefox"]="󪤕"
   ["Spotify"]="󪥵"
-  ["GitKraken"]="󪥨"
 )
 
 # Get the app name
