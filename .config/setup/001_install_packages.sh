@@ -6,6 +6,7 @@ neovim \
 base-devel \
 networkmanager \
 linux-firmware \
+linux-headers \
 lsof \
 bluez \
 bluez-utils \
@@ -16,8 +17,9 @@ playerctl \
 brightnessctl \
 slurp \
 grim \
+swappy \
 jq \
-ttf-jetbrains-mono-nerd \
+superfile \
 hyprland \
 hyprlock \
 hypridle \
@@ -26,3 +28,6 @@ waybar \
 rofi-wayland \
 flatpak \
 wl-clipboard \
+xdg-desktop-portal-hyprland \
+xdg-user-dirs \
+
