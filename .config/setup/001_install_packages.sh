@@ -23,4 +23,3 @@ swayidle \
 swaybg \
 rofi-wayland \
 flatpak \
-ttf-jetbrains-mono-nerd \
