@@ -15,7 +15,7 @@
   "spacing": 0,
   "modules-left": [
     "custom/launcher",
-    "hyprland/workspaces",
+    "sway/workspaces",
     "custom/arrow-dec",
     "group/app-title-container"
   ],
@@ -35,7 +35,7 @@
     "custom/dot-alt",
     "group/privacy-container"
   ],
-  "hyprland/workspaces": {
+  "sway/workspaces": {
     "all-outputs": false,
     "active-only": "false",
     "on-click": "activate",
@@ -72,7 +72,7 @@
       "active": ""
     }
   },
-  "hyprland/window": {
+  "sway/window": {
     "format": "{}",
     "icon": true,
     "separate-outputs": true,

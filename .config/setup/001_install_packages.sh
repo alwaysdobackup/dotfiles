@@ -9,9 +9,10 @@ pipewire-pulse \
 playerctl \
 bluez \
 bluez-utils \
+bluetui \
 slurp \
 grim \
-alacritty \
+kitty \
 lsof \
 iotop \
 bc \
@@ -23,3 +24,15 @@ swayidle \
 swaybg \
 rofi-wayland \
 flatpak \
+wl-clipboard \
+fd \
+cliphist \
+mako \
+pulsemixer \
+calcurse \
+libnotify \
+waybar \
+ripgrep \
+yazi \
+ttf-jetbrains-mono-nerd \ 
+tree-sitter-cli
