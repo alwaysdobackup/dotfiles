@@ -1,0 +1,164 @@
+/* ── Waybar — Gruvbox Dark ── */
+/* Font: JetBrains Mono Nerd Font                */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+/* ── Gruvbox palette ──────────────────────────
+   bg0_hard  #1d2021    bg0      #282828
+   bg1       #3c3836    bg2      #504945
+   bg3       #665c54    bg4      #7c6f64
+   fg0       #f9f5d7    fg1      #ebdbb2
+   fg2       #d5c4a1    fg3      #bdae93
+   red       #cc241d    bright-red    #fb4934
+   green     #98971a    bright-green  #b8bb26
+   yellow    #d79921    bright-yellow #fabd2f
+   blue      #458588    bright-blue   #83a598
+   purple    #b16286    bright-purple #d3869b
+   aqua      #689d6a    bright-aqua   #8ec07c
+   orange    #d65d0e    bright-orange #fe8019
+──────────────────────────────────────────── */
+
+window#waybar {
+    background-color: #1d2021;
+    color: #ebdbb2;
+    border-bottom: 2px solid #3c3836;
+}
+
+/* ── Workspaces ─────────────────────────────── */
+#workspaces {
+    margin: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 12px;
+    background: transparent;
+    color: #7c6f64;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s ease;
+}
+
+#workspaces button:hover {
+    background: #3c3836;
+    color: #ebdbb2;
+}
+
+#workspaces button.focused {
+    color: #fabd2f;
+    border-bottom: 2px solid #fabd2f;
+}
+
+#workspaces button.urgent {
+    color: #fb4934;
+    border-bottom: 2px solid #fb4934;
+}
+
+/* ── Sway mode ──────────────────────────────── */
+#mode {
+    background: #fb4934;
+    color: #1d2021;
+    padding: 0 12px;
+    font-weight: bold;
+}
+
+/* ── Clock (center) ─────────────────────────── */
+#clock {
+    color: #ebdbb2;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    padding: 0 16px;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+}
+
+#clock:hover {
+    background: #3c3836;
+    /*cursor: pointer;*/
+}
+
+/* ── Right modules — shared base ────────────── */
+#language,
+#network,
+#pulseaudio,
+#bluetooth,
+#cpu,
+#memory,
+#tray {
+    padding: 0 14px;
+    border-left: 1px solid #3c3836;
+    transition: background 0.15s ease;
+}
+
+#network:hover,
+#pulseaudio:hover,
+#bluetooth:hover {
+    background: #3c3836;
+    /*cursor: pointer;*/
+}
+
+/* ── Per-module colors ──────────────────────── */
+#network {
+    color: #83a598;   /* bright-blue  */
+}
+
+#network.disconnected {
+    color: #fb4934;   /* bright-red   */
+}
+
+#pulseaudio {
+    color: #b8bb26;   /* bright-green */
+}
+
+#pulseaudio.muted {
+    color: #7c6f64;   /* bg4 — dimmed */
+}
+
+#bluetooth {
+    color: #d3869b;   /* bright-purple */
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: #7c6f64;
+}
+
+#cpu {
+    color: #fe8019;   /* bright-orange */
+}
+
+#memory {
+    color: #8ec07c;   /* bright-aqua  */
+}
+
+/* ── Tray ───────────────────────────────────── */
+#tray {
+    padding: 0 10px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #d79921;
+}
+
+/* ── Tooltip ────────────────────────────────── */
+tooltip {
+    background: #282828;
+    border: 1px solid #504945;
+    border-radius: 4px;
+    color: #ebdbb2;
+    font-size: 13px;
+}
+
+tooltip label {
+    color: #ebdbb2;
+}

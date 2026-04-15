@@ -34,5 +34,5 @@ libnotify \
 waybar \
 ripgrep \
 yazi \
-ttf-jetbrains-mono-nerd \ 
+ttf-jetbrains-mono-nerd \
 tree-sitter-cli

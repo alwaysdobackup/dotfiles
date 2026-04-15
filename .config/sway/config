@@ -1,4 +1,7 @@
 
+# Autostart:
+
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland
 
 # Super Key (Logo Key)
 set $mod Mod4
@@ -36,8 +39,8 @@ set {
 mode $screenshot {
   bindsym --to-code {
     s mode "default", exec $screenshot-cmd screen
-    w mode "default", exec $screenshot-cmd window 
-    r mode "default", exec $screenshot-cmd region 
+    w mode "default", exec $screenshot-cmd window
+    r mode "default", exec $screenshot-cmd region
 
     Return mode "default"
     Escape mode "default"
@@ -49,7 +52,7 @@ bindsym --to-code $mod+s mode $screenshot
 
 #No titlebars
 #
-default_border none 
+default_border none
 for_window [title="^.*"] title_format ""
 default_border normal 0
 default_floating_border normal 0
@@ -87,9 +90,9 @@ bindsym {
 
   # Resize
   $mod+Ctrl+$left resize shrink width $resize_factor
-  $mod+Ctrl+$down resize grow height $resize_factor 
+  $mod+Ctrl+$down resize grow height $resize_factor
   $mod+Ctrl+$up resize shrink height $resize_factor
-  $mod+Ctrl+$right resize grow width $resize_factor 
+  $mod+Ctrl+$right resize grow width $resize_factor
 }
 
 # Workspaces:
@@ -101,7 +104,7 @@ bindsym {
   $mod+3 workspace number 3
   $mod+4 workspace number 4
   $mod+5 workspace number 5
-  
+
   # Move focused container to workspace
   $mod+Shift+1 move container to workspace number 1
   $mod+Shift+2 move container to workspace number 2
