@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 sudo pacman -S --noconfirm \
+kitty \
 git \
 neovim \
 base-devel \
@@ -10,16 +11,17 @@ linux-headers \
 lsof \
 bluez \
 bluez-utils \
+bluetui \
 wireplumber \
 pipewire-pulse \
 pipewire \
+pulsemixer \
 playerctl \
 brightnessctl \
 slurp \
 grim \
-swappy \
 jq \
-superfile \
+yazi \
 hyprland \
 hyprlock \
 hypridle \
@@ -28,6 +30,11 @@ waybar \
 rofi-wayland \
 flatpak \
 wl-clipboard \
+cliphist \
 xdg-desktop-portal-hyprland \
 xdg-user-dirs \
-
+fd \
+ripgrep \
+calcurse \
+tree-sitter-cli \
+ttf-fira-code \

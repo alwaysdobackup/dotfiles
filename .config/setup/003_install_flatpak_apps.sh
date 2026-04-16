@@ -11,4 +11,4 @@ flatpak install flathub com.spotify.Client -y
 # Visual Studio Code
 flatpak install flathub com.visualstudio.code -y
 # Obsidian
-#flatpak install flathub md.obsidian.Obsidian -y
+flatpak install flathub md.obsidian.Obsidian -y

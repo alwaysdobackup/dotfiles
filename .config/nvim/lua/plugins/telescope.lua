@@ -1,0 +1,24 @@
+return {
+  {
+    "nvim-lua/plenary.nvim",
+    lazy = true,
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = "Telescope",
+    config = function()
+      require("telescope").setup({
+        defaults = {
+          file_ignore_patterns = { "node_modules", ".git/" },
+          layout_strategy = "horizontal",
+          sorting_strategy = "ascending",
+          layout_config = {
+            prompt_position = "top",
+          },
+        },
+      })
+    end,
+  },
+}
