@@ -13,7 +13,7 @@ set $up k
 set $right l
 
 # Terminal emulator
-set $term kitty
+set $term alacritty
 
 # Application launcher
 set $menu rofi -show drun

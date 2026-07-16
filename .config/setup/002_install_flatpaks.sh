@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
-# Mozilla Firefox
-flatpak install flathub org.mozilla.firefox -y
-# Chromium
-flatpak install flathub org.chromium.Chromium -y
-# Spotify
-flatpak install flathub com.spotify.Client -y
-# Visual Studio Code
-flatpak install flathub com.visualstudio.code -y
+set -euo pipefail
+
+declare -a packages=(
+  "org.telegram.desktop"
+  "com.spotify.Client"
+#  "com.visualstudio.code"  # maybe not required
+  "md.obsidian.Obsidian"
+  "app.zen_browser.zen"
+  "org.videolan.VLC"
+  "us.zoom.Zoom"
+)
+
+flatpak install flathub "${packages[@]}" -y
+
